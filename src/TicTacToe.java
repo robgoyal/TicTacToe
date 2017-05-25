@@ -3,8 +3,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.*;
+import java.awt.BorderLayout;
 
-public class TicTacToe extends JFrame {
+public class TicTacToe {
+    JFrame frame = new JFrame();
+
     JPanel p = new JPanel();
     JPanel scoreBoard = new JPanel();
 
@@ -14,15 +17,22 @@ public class TicTacToe extends JFrame {
 
     XOButton buttons[] = new XOButton[9];
 
+    JPanel northPanel = new JPanel(new GridLayout(2, 3));
+    JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+    JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    JLabel winner = new JLabel("No one won yet!");
+
     public static void main(String args[]) {
         new TicTacToe();
     }
 
     public TicTacToe() {
-        super("TicTacToe");
-        setSize(400, 500);
-        setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //super("TicTacToe");
+        frame.setSize(400, 400);
+        frame.setLayout(new BorderLayout());
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         p.setLayout(new GridLayout(3, 3));
 
@@ -31,13 +41,19 @@ public class TicTacToe extends JFrame {
             p.add(buttons[i]);
         }
 
-        add(p);
+        scorePanel.add(player1);
+        scorePanel.add(draw);
+        scorePanel.add(player2);
+        northPanel.add(scorePanel);
+        //add(northPanel);
+        //add(p);
 
-        scoreBoard.setLayout(new FlowLayout(FlowLayout.CENTER));
-        add(player1);
-        add(draw);
-        add(player2);
+        infoPanel.add(winner);
 
-        setVisible(true);
+        northPanel.add(infoPanel);
+        
+        frame.add(northPanel, BorderLayout.NORTH);
+        frame.add(p, BorderLayout.CENTER);
+        frame.setVisible(true);
     }
 }
