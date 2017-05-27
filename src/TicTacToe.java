@@ -1,5 +1,11 @@
+/* Name: TicTacToe.java
+   Author: Robin Goyal
+   Last-Modified: May 25, 2017
+   Purpose: Create a basic Tic Tac Toe Game
+*/
 import java.awt.*;
 import javax.swing.*;
+import java.util.Arrays;
 
 public class TicTacToe extends JFrame {
 
@@ -7,7 +13,13 @@ public class TicTacToe extends JFrame {
     private JPanel northPanel;
     private JPanel scorePanel;
     private JPanel winnerPanel;
-    public XOButton buttons[];
+    public static JLabel winnerLabel = new JLabel("No one won yet");
+    public static XOButton buttons[];
+    private Font scoreFont = new Font("Serif", Font.BOLD, 14);
+
+    public static int xScore = 0;
+    private int drawScore = 0;
+    private int oScore = 0;
 
     public TicTacToe() {
 
@@ -17,22 +29,22 @@ public class TicTacToe extends JFrame {
         setResizable(false);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.BLUE);
 
         // Score panel
         scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        scorePanel.add(new JLabel("Player X:    "));
-        scorePanel.add(new JLabel("Draw:    "));
-        scorePanel.add(new JLabel("Player O:    "));
+        scorePanel.add(new JLabel("Player X: " + xScore + "     "));
+        scorePanel.add(new JLabel("Draw: " + drawScore + "      "));
+        scorePanel.add(new JLabel("Player O: " + oScore + "     "));
 
         // Current winner panel
         winnerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        winnerPanel.add(new JLabel("No one won yet!"));
+        winnerPanel.add(winnerLabel);
 
         // Combine score panel and winner panel onto top most panel
         northPanel = new JPanel(new GridLayout(2, 1));
         northPanel.add(scorePanel);
         northPanel.add(winnerPanel);
-
 
         // Game grid
         buttons = new XOButton[9];
@@ -51,6 +63,8 @@ public class TicTacToe extends JFrame {
     }
 
     public static void main(String args[]) {
-        new TicTacToe();
+        TicTacToe test = new TicTacToe();
+        playGame test1 = new playGame();
+        //System.out.println(Arrays.toString(test.buttons));
     }
 }
