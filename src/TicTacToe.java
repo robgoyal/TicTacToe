@@ -9,17 +9,25 @@ import java.util.Arrays;
 
 public class TicTacToe extends JFrame {
 
+    // Score values initialized
+    public static int xScore = 0;
+    public static int drawScore = 0;
+    public static int oScore = 0;
+
+    // Panels for JFrame
     private JPanel grid;
     private JPanel northPanel;
     private JPanel scorePanel;
     private JPanel winnerPanel;
-    public static JLabel winnerLabel = new JLabel("No one won yet");
+
+    // Create Labels and initialize 
+    public static JLabel winnerLabel = new JLabel();
+    private static JLabel xText = new JLabel("Player X: " + xScore + "     ");
+    private static JLabel drawText = new JLabel("Draw: " + drawScore + "     ");
+    private static JLabel oText = new JLabel("Player O: " + oScore + "     ");
+
     public static XOButton buttons[];
     private Font scoreFont = new Font("Serif", Font.BOLD, 14);
-
-    public static int xScore = 0;
-    private int drawScore = 0;
-    private int oScore = 0;
 
     public TicTacToe() {
 
@@ -31,11 +39,11 @@ public class TicTacToe extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.BLUE);
 
-        // Score panel
+        // Score panel with JLabels added
         scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        scorePanel.add(new JLabel("Player X: " + xScore + "     "));
-        scorePanel.add(new JLabel("Draw: " + drawScore + "      "));
-        scorePanel.add(new JLabel("Player O: " + oScore + "     "));
+        scorePanel.add(xText);
+        scorePanel.add(drawText);
+        scorePanel.add(oText);
 
         // Current winner panel
         winnerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -62,6 +70,13 @@ public class TicTacToe extends JFrame {
 
     }
 
+    // Update score labels to reflect updated score
+    public static void updateText() {
+        xText.setText("Player X: " + xScore + "     ");
+        drawText.setText("Draw: " + drawScore + "     ");
+        oText.setText("Player O: " + oScore + "     ");
+
+    }
     public static void main(String args[]) {
         TicTacToe test = new TicTacToe();
         playGame test1 = new playGame();

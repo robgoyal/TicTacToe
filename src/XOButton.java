@@ -22,33 +22,30 @@ public class XOButton extends JButton implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        /*value++;
-        value %= 3;
-
-        switch(value) {
-            case 0:
-                setIcon(null);
-                break;
-            case 1:
-                setIcon(X);
-                break;
-            case 2:
-                setIcon(O);
-                break;
-        }*/
-
-        //winnerLabel.setText(e.getActionCommand());
         for (int i = 0; i < 9; i++) {
+
+            // Find which button was clicked
             if (e.getSource() == TicTacToe.buttons[i]) {
-                if (playGame.playerMove && playGame.grid[i] == 0) {
-                    setIcon(X);
-                    playGame.grid[i] = 1;
-                    playGame.won();
+
+                // Make sure button clicked wasn't 
+                if (playGame.grid[i] == 0) {
+
+                    TicTacToe.winnerLabel.setText("");
+
+                    if (playGame.playerMove) {
+                        setIcon(X);
+                        playGame.grid[i] = 1;
+                        playGame.check(1);
+                    }
+                    else if (!(playGame.playerMove)) {
+                        setIcon(O);
+                        playGame.grid[i] = 2;
+                        playGame.check(2);
+                    }
                 }
-                else if (!(playGame.playerMove) && playGame.grid[i] == 0) {
-                    setIcon(O);
-                    playGame.grid[i] = 2;
-                    playGame.won();
+
+                else {
+                    TicTacToe.winnerLabel.setText("Button was already clicked");
                 }
             }
         }

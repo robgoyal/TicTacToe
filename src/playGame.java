@@ -2,42 +2,88 @@ import java.awt.*;
 import javax.swing.*;
 
 public class playGame {
-    
+        
+    //enum State{Blank, X, O};
+
     public static byte grid[] = new byte[9];
+
     public static Boolean playerMove;
-    private static boolean winner = false;
+    private static boolean xWinner = false;
+    private static boolean oWinner = false;
     private static boolean draw = false;
+
+    private static boolean[] winner = new boolean[2];
 
     public playGame() {
         playerMove = true;
     }
 
-    public static void won() throws Exception {
+    public static void check (int val) {
+        // Run win conditions if there is a winner
         if (containsZero()) {
             playerMove = !playerMove;
-            if (grid[0] == 1 && grid[1] == 1 && grid[2] == 1) {
-                TicTacToe.winnerLabel.setText("Player 1 WON");
-                winner = true;
-                disableButtons();
+            if (grid[0] == val && grid[1] == val && grid[2] == val) {
+                winner[val - 1] = true;
+                winOrDraw();            
             }
-
-            else if (grid[0] == 2 && grid[1] == 2 && grid[2] == 2) {
-                TicTacToe.winnerLabel.setText("Player 2 WON");
-                winner = true;
-                disableButtons();
+            else if (grid[3] == val && grid[4] == val && grid[5] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
+            }
+            else if (grid[6] == val && grid[7] == val && grid[8] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
+            }
+            else if (grid[0] == val && grid[3] == val && grid[6] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
+            }
+            else if (grid[1] == val && grid[4] == val && grid[7] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
+            }
+            else if (grid[2] == val && grid[5] == val && grid[8] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
+            }
+            else if (grid[0] == val && grid[4] == val && grid[8] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
+            }
+            else if (grid[2] == val && grid[4] == val && grid[6] == val) {
+                winner[val - 1] = true;
+                winOrDraw();
             }
         }
+        
         else {
-            TicTacToe.winnerLabel.setText("It's a DRAW");
-            disableButtons();
             draw = true;
-        }
-
-        if (winner || draw) {
-            reset();
+            winOrDraw();
         }
     }
 
+    public static void winOrDraw(){
+        if (winner[0]) {
+            TicTacToe.winnerLabel.setText("Player X WON");
+            TicTacToe.xScore++;
+        }
+
+        else if (winner[1]) {
+            TicTacToe.winnerLabel.setText("Player O WON");
+            TicTacToe.oScore++;
+        }
+
+        else {
+            TicTacToe.winnerLabel.setText("It's a DRAW");
+            TicTacToe.drawScore++;
+        }
+
+        TicTacToe.updateText();
+        disableButtons();
+        //reset();
+    }
+
+    // Check if grid is not full
     public static boolean containsZero() {
         for (int i: grid) {
             if (i == 0) {
@@ -56,10 +102,11 @@ public class playGame {
 
     public static void reset() {
 
-        int count = 0;
-        while (count < 10000) {
-            count++;
-        }
+        /*try {
+            Thread.sleep(2000);
+        } catch (InterruptedException ex) {
+            System.out.println("Hello");
+        }*/
 
         for (byte j = 0; j < 9; j++) {
             grid[j] = 0;
@@ -70,7 +117,12 @@ public class playGame {
             i.setEnabled(true);
         }
 
+        TicTacToe.winnerLabel.setText("");
+        // xWinner = false;
         draw = false;
-        winner = false;
+        // oWinner = false;
+
+        winner[0] = false;
+        winner[1] = false;
     }
 }
