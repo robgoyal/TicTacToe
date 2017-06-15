@@ -80,7 +80,7 @@ public class playGame {
 
         TicTacToe.updateText();
         disableButtons();
-        //reset();
+        reset();
     }
 
     // Check if grid is not full
@@ -101,12 +101,6 @@ public class playGame {
     }
 
     public static void reset() {
-
-        /*try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            System.out.println("Hello");
-        }*/
 
         for (byte j = 0; j < 9; j++) {
             grid[j] = 0;
